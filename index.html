@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Jessica Beauty Massage – Booking Pijat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after {
+  margin: 0; padding: 0; box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+}
+:root {
+  --rose: #D4896A;
+  --rose-light: #F0C4AE;
+  --rose-dim: rgba(212,137,106,.13);
+  --blush: #F9F0EB;
+  --blush2: #F2E4DA;
+  --blush3: #E8D3C5;
+  --dark: #1A1210;
+  --dark2: #2C201A;
+  --dark3: #3D2E25;
+  --muted: #9A7B6E;
+  --white: #FFFFFF;
+  --sage: #5A7A5E;
+  --error: #C0392B;
+  --r-card: 18px;
+  --r-sm: 10px;
+  --r-pill: 999px;
+  --sh: 0 2px 20px rgba(26,18,16,.06);
+  --sh-lg: 0 8px 36px rgba(26,18,16,.12);
+  --touch: 48px;
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sat: env(safe-area-inset-top, 0px);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--blush);
+  color: var(--dark);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+::-webkit-scrollbar { width: 3px; height: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--blush3); border-radius: 99px; }
+
+/* ── LAYOUT ── */
+.site {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 14px;
+  padding-bottom: calc(88px + var(--sab));
+}
+
+/* ── NAV ── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 14px;
+  height: 58px;
+  margin: 0 -14px;
+  background: rgba(249,240,235,.93);
+  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(232,211,197,.5);
+}
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem; font-weight: 700;
+  color: var(--dark); letter-spacing: -.01em;
+}
+.logo span { color: var(--rose); font-style: italic; }
+.nav-right { display: flex; align-items: center; gap: 8px; }
+.sync-badge {
+  font-size: .65rem; font-weight: 600;
+  padding: 5px 10px; border-radius: var(--r-pill);
+  display: flex; align-items: center; gap: 5px;
+  background: rgba(90,122,94,.1); color: var(--sage);
+  letter-spacing: .06em;
+}
+.sync-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: currentColor; animation: pulse 2.5s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.2} }
+.nav-admin-link {
+  font-size: .72rem; color: var(--muted); text-decoration: none;
+  height: 32px; padding: 0 12px;
+  display: flex; align-items: center;
+  border: 1px solid var(--blush3); border-radius: var(--r-pill);
+  font-weight: 500;
+}
+
+/* ── HERO ── */
+.hero {
+  background: linear-gradient(135deg, #1E120A 0%, #2F1E14 55%, #3A2418 100%);
+  border-radius: 22px; margin: 12px 0 22px;
+  padding: 26px 20px 22px;
+  overflow: hidden; position: relative;
+  animation: fadeUp .5s ease both;
+}
+.hero::before {
+  content: ''; position: absolute; top: -80px; right: -50px;
+  width: 280px; height: 280px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(212,137,106,.22) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero::after {
+  content: ''; position: absolute; bottom: -40px; left: 10%;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(212,137,106,.1) 0%, transparent 65%);
+  pointer-events: none;
+}
+.hero-inner {
+  display: flex; align-items: flex-start;
+  justify-content: space-between; gap: 14px;
+  position: relative; z-index: 1;
+}
+.hero-text { flex: 1; min-width: 0; }
+.hero-pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(212,137,106,.15); border: 1px solid rgba(212,137,106,.28);
+  color: var(--rose-light); font-size: .6rem; letter-spacing: .16em; font-weight: 700;
+  padding: 4px 12px; border-radius: var(--r-pill); margin-bottom: 11px;
+  text-transform: uppercase;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.95rem; font-weight: 700;
+  color: #FFF6EE; line-height: 1.18; margin-bottom: 9px;
+}
+.hero h1 em { color: var(--rose); font-style: italic; }
+.hero-desc {
+  font-size: .78rem; color: rgba(255,246,238,.48);
+  line-height: 1.7; max-width: 270px;
+}
+.hero-stats {
+  display: flex; gap: 22px; margin-top: 18px;
+  padding-top: 15px; border-top: 1px solid rgba(255,246,238,.07);
+}
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem; font-weight: 700; color: var(--rose); line-height: 1;
+}
+.stat-lbl {
+  font-size: .56rem; color: rgba(255,246,238,.3);
+  letter-spacing: .1em; margin-top: 2px; text-transform: uppercase;
+}
+.hero-orb {
+  width: 72px; height: 72px; flex-shrink: 0; border-radius: 50%;
+  background: rgba(212,137,106,.1); border: 1px solid rgba(212,137,106,.18);
+  display: flex; align-items: center; justify-content: center; font-size: 2rem;
+  position: relative; z-index: 1; margin-top: 2px;
+  box-shadow: 0 0 40px rgba(212,137,106,.14);
+}
+
+/* ── SECTION HEADERS ── */
+.sec-eyebrow {
+  font-size: .6rem; letter-spacing: .18em; font-weight: 700;
+  color: var(--rose); text-transform: uppercase; margin-bottom: 3px;
+}
+.sec-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.38rem; font-weight: 700; line-height: 1.2; margin-bottom: 2px;
+}
+.sec-sub { font-size: .76rem; color: var(--muted); margin-bottom: 14px; line-height: 1.55; }
+
+/* ── STEP BADGE ── */
+.step-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--rose); color: white;
+  font-size: .65rem; font-weight: 700; margin-right: 7px;
+  flex-shrink: 0; vertical-align: middle;
+}
+
+/* ── TERAPIS GRID ── */
+.terapis-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px; margin-bottom: 22px;
+}
+.ter-card {
+  background: var(--white); border-radius: var(--r-card);
+  padding: 16px 14px; cursor: pointer;
+  border: 2px solid transparent;
+  transition: all .22s cubic-bezier(.34,1.4,.64,1);
+  box-shadow: var(--sh); position: relative;
+  overflow: hidden;
+}
+.ter-card::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, transparent 60%, var(--rose-dim));
+  opacity: 0; transition: opacity .22s;
+  border-radius: calc(var(--r-card) - 2px);
+}
+.ter-card.selected { border-color: var(--rose); background: #FFF5F0; }
+.ter-card.selected::before { opacity: 1; }
+.ter-card:active { transform: scale(.97); }
+.ter-chk {
+  position: absolute; top: 9px; right: 9px;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--rose); color: white; font-size: 10px;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transform: scale(.4);
+  transition: all .2s cubic-bezier(.34,1.56,.64,1);
+}
+.ter-card.selected .ter-chk { opacity: 1; transform: scale(1); }
+.ter-avatar-wrap {
+  width: 52px; height: 52px; border-radius: 14px;
+  background: var(--blush); border: 2px solid var(--blush2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem; margin-bottom: 10px;
+  position: relative; z-index: 1;
+  transition: transform .2s;
+}
+.ter-card.selected .ter-avatar-wrap {
+  background: rgba(212,137,106,.12); border-color: rgba(212,137,106,.3);
+}
+.ter-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem; font-weight: 700; margin-bottom: 2px;
+  position: relative; z-index: 1;
+}
+.ter-title {
+  font-size: .67rem; color: var(--muted); margin-bottom: 6px;
+  position: relative; z-index: 1;
+}
+.ter-rating {
+  display: flex; align-items: center; gap: 3px;
+  font-size: .65rem; font-weight: 600; color: var(--rose);
+  position: relative; z-index: 1;
+}
+.ter-spec-tags {
+  display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px;
+  position: relative; z-index: 1;
+}
+.ter-spec-tag {
+  font-size: .58rem; font-weight: 600;
+  padding: 3px 7px; border-radius: var(--r-pill);
+  background: var(--blush); color: var(--muted);
+  letter-spacing: .02em;
+}
+.ter-card.selected .ter-spec-tag {
+  background: rgba(212,137,106,.1); color: var(--rose);
+}
+
+/* ── SERVICES (step 2 - depends on terapis) ── */
+.services-section {
+  transition: all .3s ease;
+}
+.services-locked {
+  opacity: .45; pointer-events: none;
+  filter: blur(.5px);
+}
+.locked-hint {
+  text-align: center; padding: 22px 16px;
+  background: var(--white); border-radius: var(--r-card);
+  border: 1.5px dashed var(--blush3);
+  margin-bottom: 22px;
+}
+.locked-hint .lock-icon { font-size: 1.8rem; margin-bottom: 8px; }
+.locked-hint p { font-size: .8rem; color: var(--muted); }
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px; margin-bottom: 22px;
+}
+.svc-card {
+  background: var(--white); border-radius: var(--r-card);
+  padding: 15px 13px 13px;
+  border: 2px solid transparent; cursor: pointer;
+  transition: all .22s cubic-bezier(.34,1.4,.64,1);
+  position: relative; box-shadow: var(--sh);
+  min-height: 120px; overflow: hidden;
+}
+.svc-card::after {
+  content: ''; position: absolute;
+  bottom: 0; left: 0; right: 0; height: 3px;
+  background: var(--rose);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .22s ease;
+}
+.svc-card.selected::after { transform: scaleX(1); }
+.svc-card.selected {
+  border-color: var(--rose); background: #FFF5F0;
+  box-shadow: 0 0 0 3px rgba(212,137,106,.1), var(--sh);
+}
+.svc-card:active { transform: scale(.97); }
+.svc-chk {
+  position: absolute; top: 9px; right: 9px;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--rose); color: white; font-size: 9px;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transform: scale(.4);
+  transition: all .2s cubic-bezier(.34,1.56,.64,1);
+}
+.svc-card.selected .svc-chk { opacity: 1; transform: scale(1); }
+.svc-icon-wrap {
+  width: 38px; height: 38px; border-radius: 10px;
+  background: var(--blush); display: flex;
+  align-items: center; justify-content: center;
+  font-size: 1.2rem; margin-bottom: 9px;
+  transition: background .2s;
+}
+.svc-card.selected .svc-icon-wrap { background: rgba(212,137,106,.15); }
+.svc-name {
+  font-family: 'Playfair Display', serif;
+  font-size: .92rem; font-weight: 700; margin-bottom: 2px; line-height: 1.25;
+}
+.svc-dur { font-size: .64rem; color: var(--muted); margin-bottom: 5px; }
+.svc-price { font-size: .88rem; font-weight: 700; color: var(--rose); }
+.svc-desc { font-size: .62rem; color: var(--muted); margin-top: 3px; line-height: 1.5; }
+
+/* ── BOOKING CARD ── */
+.booking-card {
+  background: var(--white); border-radius: var(--r-card);
+  padding: 20px 16px;
+  border: 1px solid var(--blush2); box-shadow: var(--sh);
+  margin-bottom: 22px;
+}
+.section-divider { border: none; border-top: 1px solid var(--blush2); margin: 18px 0; }
+
+/* ── FORM ── */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.fg { display: flex; flex-direction: column; gap: 5px; }
+.fg.full { grid-column: 1 / -1; }
+.fg label {
+  font-size: .62rem; letter-spacing: .1em;
+  color: var(--muted); font-weight: 700; text-transform: uppercase;
+}
+.fg input, .fg select, .fg textarea {
+  background: var(--blush); border: 1.5px solid var(--blush2);
+  border-radius: var(--r-sm);
+  padding: 0 14px; height: var(--touch);
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: .95rem; color: var(--dark);
+  outline: none; transition: border-color .18s, box-shadow .18s;
+  width: 100%; appearance: none; -webkit-appearance: none;
+}
+.fg textarea { height: auto; min-height: 70px; padding: 11px 14px; resize: none; }
+.fg input:focus, .fg select:focus, .fg textarea:focus {
+  border-color: var(--rose); background: #FFF5F0;
+  box-shadow: 0 0 0 3px rgba(212,137,106,.1);
+}
+.fg input[type="date"] { -webkit-appearance: none; appearance: none; }
+.fg select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239A7B6E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 13px center; padding-right: 36px;
+}
+
+/* ── SLOTS ── */
+.slots-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 7px; margin-bottom: 18px;
+}
+.slot {
+  height: var(--touch); border-radius: 9px;
+  background: var(--blush); border: 1.5px solid var(--blush2);
+  font-size: .75rem; font-weight: 600; cursor: pointer;
+  transition: all .15s; text-align: center;
+  font-family: 'Plus Jakarta Sans', sans-serif; color: var(--dark);
+  display: flex; align-items: center; justify-content: center;
+}
+.slot:active:not(.unavail) { transform: scale(.93); }
+.slot.selected {
+  background: var(--rose); border-color: var(--rose);
+  color: white; box-shadow: 0 4px 14px rgba(212,137,106,.38);
+}
+.slot.unavail {
+  opacity: .3; cursor: not-allowed;
+  text-decoration: line-through; font-size: .67rem;
+}
+
+/* ── SUMMARY ── */
+.sum-box {
+  background: linear-gradient(140deg, var(--dark) 0%, var(--dark2) 100%);
+  border-radius: 16px; padding: 18px 16px; margin-top: 16px;
+}
+.sum-title {
+  font-family: 'Playfair Display', serif;
+  font-size: .95rem; font-weight: 700; color: #FFF6EE;
+  margin-bottom: 14px; letter-spacing: .02em;
+}
+.sum-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-size: .76rem; margin-bottom: 7px;
+}
+.sum-row .lbl { color: rgba(255,246,238,.4); flex-shrink: 0; }
+.sum-row .val { color: #FFF6EE; font-weight: 500; text-align: right; max-width: 58%; word-break: break-word; }
+.sum-div { border: none; border-top: 1px solid rgba(255,246,238,.09); margin: 11px 0; }
+.sum-total { display: flex; justify-content: space-between; align-items: center; }
+.sum-total .lbl { color: rgba(255,246,238,.6); font-size: .78rem; }
+.sum-total .val {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem; font-weight: 700; color: var(--rose);
+}
+
+/* ── TERAPIS PROFILE BANNER ── */
+.terapis-banner {
+  display: none;
+  background: linear-gradient(135deg, #FFF5F0 0%, #FFF8F5 100%);
+  border: 1.5px solid rgba(212,137,106,.22);
+  border-radius: 14px; padding: 14px 16px;
+  margin-bottom: 18px;
+  align-items: center; gap: 14px;
+}
+.terapis-banner.show { display: flex; }
+.tb-avatar {
+  width: 48px; height: 48px; border-radius: 12px;
+  background: rgba(212,137,106,.12);
+  display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+  flex-shrink: 0; border: 1.5px solid rgba(212,137,106,.22);
+}
+.tb-info { flex: 1; }
+.tb-name { font-family: 'Playfair Display', serif; font-size: .95rem; font-weight: 700; margin-bottom: 2px; }
+.tb-note { font-size: .7rem; color: var(--muted); line-height: 1.5; }
+
+/* ── FLOATING BOOK BUTTON ── */
+.btn-book-wrap {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 90;
+  padding: 12px 14px;
+  padding-bottom: calc(12px + var(--sab));
+  background: linear-gradient(to top, var(--blush) 60%, rgba(249,240,235,0));
+  pointer-events: none;
+}
+.btn-book {
+  width: 100%; max-width: 700px; margin: 0 auto; display: flex;
+  align-items: center; justify-content: center; gap: 8px;
+  height: 54px;
+  background: var(--dark); border: none; border-radius: 15px;
+  font-family: 'Playfair Display', serif; font-size: 1.05rem;
+  font-weight: 700; letter-spacing: .04em;
+  color: var(--rose-light); cursor: pointer;
+  transition: transform .15s, box-shadow .15s;
+  box-shadow: 0 8px 28px rgba(26,18,16,.22);
+  pointer-events: all;
+}
+.btn-book:active { transform: scale(.97); box-shadow: 0 3px 12px rgba(26,18,16,.18); }
+.btn-book:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+
+/* ── LOADING ── */
+.loading-card {
+  background: var(--white); border-radius: var(--r-card);
+  padding: 30px; text-align: center; color: var(--muted);
+  font-size: .85rem; grid-column: 1/-1;
+}
+.spinner {
+  width: 26px; height: 26px;
+  border: 2.5px solid var(--blush2); border-top-color: var(--rose);
+  border-radius: 50%; animation: spin .9s linear infinite;
+  margin: 0 auto 10px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── MODAL ── */
+.modal-overlay {
+  display: none; position: fixed; inset: 0; z-index: 999;
+  background: rgba(20,12,10,.72);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  align-items: flex-end; justify-content: center;
+}
+.modal-overlay.show { display: flex; }
+.modal {
+  background: var(--white);
+  border-radius: 26px 26px 0 0;
+  padding: 22px 20px;
+  padding-bottom: calc(26px + var(--sab));
+  width: 100%; max-width: 500px; text-align: center;
+  animation: slideUp .3s cubic-bezier(.34,1.1,.64,1) both;
+}
+@keyframes slideUp { from { opacity:0; transform:translateY(40px); } to { opacity:1; transform:translateY(0); } }
+.modal-handle {
+  width: 34px; height: 4px; background: var(--blush2);
+  border-radius: var(--r-pill); margin: 0 auto 20px;
+}
+.modal-icon { font-size: 2.8rem; margin-bottom: 10px; display: block; }
+.modal h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem; font-weight: 700; margin-bottom: 6px;
+}
+.modal p { font-size: .8rem; color: var(--muted); line-height: 1.7; margin-bottom: 12px; }
+.modal-code {
+  background: var(--blush); border-radius: 10px;
+  padding: 11px 14px; font-size: 1.05rem; font-weight: 700;
+  color: var(--rose); letter-spacing: .18em;
+  margin-bottom: 6px; display: block;
+}
+.modal-close {
+  width: 100%; background: var(--dark); color: var(--rose-light);
+  border: none; border-radius: 13px; height: var(--touch);
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: .9rem; font-weight: 600;
+  cursor: pointer; margin-top: 10px; transition: transform .15s;
+}
+.modal-close:active { transform: scale(.97); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+.animate { animation: fadeUp .45s ease both; }
+.delay-1 { animation-delay: .07s; }
+.delay-2 { animation-delay: .14s; }
+.delay-3 { animation-delay: .21s; }
+
+/* ── TOAST ── */
+.toast {
+  position: fixed; bottom: calc(80px + var(--sab)); left: 50%; transform: translateX(-50%) translateY(10px);
+  background: var(--dark); color: #FFF6EE;
+  padding: 10px 20px; border-radius: var(--r-pill);
+  font-size: .8rem; font-weight: 500; z-index: 888;
+  opacity: 0; transition: opacity .2s, transform .2s;
+  white-space: nowrap; pointer-events: none;
+  box-shadow: 0 6px 24px rgba(26,18,16,.22);
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ══ RESPONSIVE ══ */
+@media (min-width: 480px) {
+  .services-grid { grid-template-columns: repeat(3, 1fr); }
+  .slots-grid { grid-template-columns: repeat(5, 1fr); }
+}
+@media (min-width: 640px) {
+  .site { padding: 0 18px; padding-bottom: 80px; }
+  nav { padding: 0 18px; height: 62px; margin: 0 -18px; }
+  .hero { padding: 30px 26px 26px; }
+  .hero h1 { font-size: 2.4rem; }
+  .hero-orb { width: 88px; height: 88px; font-size: 2.5rem; }
+  .terapis-grid { grid-template-columns: repeat(4, 1fr); }
+  .services-grid { grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .slots-grid { grid-template-columns: repeat(6, 1fr); }
+  .booking-card { padding: 22px 20px; }
+  .modal-overlay { align-items: center; padding: 20px; }
+  .modal { border-radius: 22px; padding-bottom: 22px; }
+  .modal-handle { display: none; }
+  .btn-book-wrap { position: static; padding: 0; background: none; margin-top: 14px; }
+  .btn-book { box-shadow: none; }
+  .btn-book:hover:not(:disabled) { background: var(--dark2); }
+}
+@media (max-width: 360px) {
+  .hero h1 { font-size: 1.75rem; }
+  .hero-orb { width: 60px; height: 60px; font-size: 1.75rem; }
+  .terapis-grid { grid-template-columns: repeat(2, 1fr); }
+  .services-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .slots-grid { grid-template-columns: repeat(3, 1fr); }
+  .form-grid { grid-template-columns: 1fr; }
+  .form-grid .fg.full { grid-column: 1; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Jessica<span>Beauty</span></div>
+  <div class="nav-right">
+    <div class="sync-badge" id="syncBadge">
+      <div class="sync-dot" id="syncBadgeDot"></div>
+      <span>Live</span>
+    </div>
+    <a href="admin.html" class="nav-admin-link">⚙ Admin</a>
+  </div>
+</nav>
+
+<div class="site">
+  <!-- HERO -->
+  <div class="hero animate">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="hero-pill">✦ Pijat & Wellness Premium</div>
+        <h1>Pulihkan Tubuh,<br><em>Tenangkan Jiwa</em></h1>
+        <p class="hero-desc">Terapis bersertifikat, layanan personal, booking mudah kapan saja.</p>
+        <div class="hero-stats">
+          <div><div class="stat-num">500+</div><div class="stat-lbl">Klien Puas</div></div>
+          <div><div class="stat-num" id="heroCount">—</div><div class="stat-lbl">Layanan</div></div>
+          <div><div class="stat-num">5★</div><div class="stat-lbl">Rating</div></div>
+        </div>
+      </div>
+      <div class="hero-orb">🌸</div>
+    </div>
+  </div>
+
+  <!-- STEP 1: TERAPIS -->
+  <div class="animate delay-1">
+    <div class="sec-eyebrow"><span class="step-badge">1</span>Pilih Terapis</div>
+    <div class="sec-title">Tim Terapis Kami</div>
+    <div class="sec-sub">Setiap terapis memiliki keahlian spesial yang berbeda</div>
+  </div>
+  <div id="terapisGrid" class="terapis-grid animate delay-2">
+    <div class="loading-card"><div class="spinner"></div>Memuat terapis…</div>
+  </div>
+
+  <!-- STEP 2: LAYANAN (per terapis) -->
+  <div class="animate delay-2">
+    <div class="sec-eyebrow"><span class="step-badge">2</span>Pilih Layanan</div>
+    <div class="sec-title">Layanan Tersedia</div>
+    <div class="sec-sub" id="svcSubtitle">Pilih terapis dahulu untuk melihat layanan yang tersedia</div>
+  </div>
+  <div id="servicesSection" class="services-section">
+    <div id="servicesGrid" class="services-grid animate delay-3">
+      <div class="loading-card"><div class="spinner"></div>Memuat layanan…</div>
+    </div>
+  </div>
+
+  <!-- BOOKING CARD -->
+  <div class="booking-card animate delay-3">
+
+    <!-- TERAPIS BANNER (shown after selection) -->
+    <div id="terapisBanner" class="terapis-banner">
+      <div class="tb-avatar" id="tbAvatar">👩</div>
+      <div class="tb-info">
+        <div class="tb-name" id="tbName">—</div>
+        <div class="tb-note" id="tbNote">—</div>
+      </div>
+    </div>
+
+    <!-- DETAIL -->
+    <div class="sec-eyebrow"><span class="step-badge">3</span>Detail Kunjungan</div>
+    <div class="sec-title" style="font-size:1.15rem">Informasi Anda</div>
+    <div class="sec-sub">Lengkapi data untuk konfirmasi booking</div>
+    <div class="form-grid">
+      <div class="fg"><label>Nama Lengkap</label><input type="text" id="namaInp" placeholder="Contoh: Budi Santoso" autocomplete="name"></div>
+      <div class="fg"><label>Nomor HP / WhatsApp</label><input type="tel" id="hpInp" placeholder="08xx xxxx xxxx" autocomplete="tel"></div>
+      <div class="fg"><label>Tanggal Kunjungan</label><input type="date" id="tglInp" onchange="updateSum()"></div>
+      <div class="fg">
+        <label>Lokasi Layanan</label>
+        <select id="lokInp" onchange="updateSum()">
+          <option value="">Pilih lokasi…</option>
+        </select>
+      </div>
+      <div class="fg full"><label>Catatan Khusus (Opsional)</label><textarea id="catInp" placeholder="Fokus area tertentu, kondisi kesehatan, dll."></textarea></div>
+    </div>
+
+    <hr class="section-divider">
+
+    <!-- WAKTU -->
+    <div class="sec-eyebrow"><span class="step-badge">4</span>Pilih Waktu</div>
+    <div class="sec-title" style="font-size:1.15rem">Jadwal Tersedia</div>
+    <div class="sec-sub">Slot waktu untuk terapis yang dipilih</div>
+    <div class="slots-grid" id="slotsGrid">
+      <div style="font-size:.82rem;color:var(--muted);grid-column:1/-1;padding:.4rem 0">Pilih terapis dan tanggal dahulu…</div>
+    </div>
+
+    <!-- SUMMARY -->
+    <div class="sum-box">
+      <div class="sum-title">✦ Ringkasan Booking</div>
+      <div class="sum-row"><span class="lbl">Terapis</span><span class="val" id="sumTer">—</span></div>
+      <div class="sum-row"><span class="lbl">Layanan</span><span class="val" id="sumSvc">—</span></div>
+      <div class="sum-row"><span class="lbl">Tanggal</span><span class="val" id="sumTgl">—</span></div>
+      <div class="sum-row"><span class="lbl">Waktu</span><span class="val" id="sumWkt">—</span></div>
+      <div class="sum-row"><span class="lbl">Lokasi</span><span class="val" id="sumLok">—</span></div>
+      <hr class="sum-div">
+      <div class="sum-total"><span class="lbl">Total</span><span class="val" id="sumTotal">Rp 0</span></div>
+    </div>
+
+    <!-- DESKTOP BUTTON -->
+    <button class="btn-book" id="btnBook" onclick="bookNow()" style="display:none">
+      <span>✦</span> Konfirmasi Booking
+    </button>
+  </div>
+</div>
+
+<!-- MOBILE FLOATING BUTTON -->
+<div class="btn-book-wrap" id="bookWrap">
+  <button class="btn-book" onclick="bookNow()">
+    <span>✦</span> Konfirmasi Booking
+  </button>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- SUCCESS MODAL -->
+<div class="modal-overlay" id="successOverlay">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <span class="modal-icon">🌸</span>
+    <h2>Booking Berhasil!</h2>
+    <p id="sucMsg">Terima kasih! Tim kami akan menghubungi Anda via WhatsApp untuk konfirmasi jadwal.</p>
+    <div class="modal-code" id="sucCode">STX-0000</div>
+    <p style="font-size:.72rem;color:var(--muted);margin-bottom:.5rem">Simpan kode ini sebagai referensi</p>
+    <button class="modal-close" onclick="closeSuccess()">Tutup & Kembali</button>
+  </div>
+</div>
+
+<script>
+// ─── CONFIG ───────────────────────────────────────────────────────────────────
+const JSONBIN_KEY = '$2a$10$ewjsuhsoZxAkknlkMtNal.SwtkwzCTdFYP4dXwW0MyYPjot8mAWYC';
+const JSONBIN_BIN = '69fdb26fadc21f119a6eb8bc';
+const STORAGE_KEY  = 'serenetouch_data_v1';
+const BOOKING_KEY  = 'serenetouch_bookings_v1';
+
+// ─── DEFAULT DATA WITH PER-TERAPIS SERVICES ───────────────────────────────────
+const DEFAULT_DATA = {
+  services: [
+    { id: 1, icon: '🌸', name: 'Pijat Relaksasi',  dur: 60, price: 150000, desc: 'Meredakan ketegangan & stres', terapisIds: [1,2,3,4] },
+    { id: 2, icon: '💪', name: 'Deep Tissue',       dur: 75, price: 200000, desc: 'Atasi nyeri otot dalam',      terapisIds: [2,3] },
+    { id: 3, icon: '🕯️', name: 'Aromaterapi',      dur: 60, price: 180000, desc: 'Relaksasi dengan minyak esensial', terapisIds: [1,4] },
+    { id: 4, icon: '🔥', name: 'Batu Panas',        dur: 90, price: 250000, desc: 'Kehangatan terapi batu vulkanik',  terapisIds: [3] },
+    { id: 5, icon: '🌿', name: 'Herbal Compress',   dur: 75, price: 220000, desc: 'Rempah tradisional Jawa',     terapisIds: [1,2] },
+    { id: 6, icon: '✨', name: 'Full Body Scrub',   dur: 60, price: 160000, desc: 'Eksfoliasi & peremajaan kulit',   terapisIds: [4] },
+    { id: 7, icon: '🤲', name: 'Refleksiologi',     dur: 45, price: 120000, desc: 'Pijat titik refleks telapak kaki', terapisIds: [2,3,4] },
+    { id: 8, icon: '🌺', name: 'Prenatal Massage',  dur: 60, price: 175000, desc: 'Khusus ibu hamil bersertifikat',   terapisIds: [1] },
+  ],
+  terapis: [
+    {
+      id: 1, icon: '👩', name: 'Ibu Sari', title: 'Spesialis Relaksasi & Prenatal',
+      rating: '5.0', wa: '', note: 'Bersertifikat prenatal massage, 8 tahun pengalaman.',
+      specialties: ['Relaksasi', 'Aromaterapi', 'Prenatal']
+    },
+    {
+      id: 2, icon: '👩‍🦱', name: 'Ibu Dewi', title: 'Spesialis Deep Tissue & Sport',
+      rating: '4.9', wa: '', note: 'Ahli terapi cedera otot & sport massage.',
+      specialties: ['Deep Tissue', 'Sport', 'Herbal']
+    },
+    {
+      id: 3, icon: '👨', name: 'Pak Adi', title: 'Terapis Tradisional & Batu Panas',
+      rating: '4.8', wa: '', note: 'Menguasai teknik pijat tradisional Jawa & hot stone.',
+      specialties: ['Tradisional', 'Batu Panas', 'Refleksi']
+    },
+    {
+      id: 4, icon: '🎲', name: 'Terapis Mana Saja', title: 'Tersedia Sesuai Jadwal',
+      rating: 'Fleksibel', wa: '', note: 'Kami akan menyesuaikan terapis terbaik yang tersedia.',
+      specialties: ['Semua Layanan']
+    }
+  ],
+  jadwal: {
+    hariAktif: [true,true,true,true,true,true,false],
+    jamBuka: '09:00', jamTutup: '21:00',
+    slots: [
+      {time:'09:00',active:true},{time:'10:00',active:true},{time:'11:00',active:true},
+      {time:'12:00',active:false},{time:'13:00',active:false},{time:'14:00',active:true},
+      {time:'15:00',active:true},{time:'16:00',active:true},{time:'17:00',active:true},
+      {time:'18:00',active:true},{time:'19:00',active:true},{time:'20:00',active:true}
+    ]
+  },
+  harga: {
+    biayaPanggilan: 50000, biayaTransport: 0,
+    labelPanggilan: 'Panggilan ke Rumah / Hotel', labelStudio: 'Di Tempat Kami (Studio)',
+    minBooking: 0, diskonMember: 0, showPrice: true, enablePanggilan: true
+  },
+  bisnis: {
+    nama: 'Jessica Beauty Massage', tagline: 'Spa & Wellness Premium',
+    desc: 'Layanan pijat profesional dengan terapis bersertifikat.',
+    wa: '', alamat: '', ig: '', maps: '',
+    pesanKonfirmasi: 'Terima kasih! Tim kami akan menghubungi Anda via WhatsApp untuk konfirmasi jadwal.',
+    catatanBooking: ''
+  },
+  fitur: { booking: true, lokasi: true, catatan: true, waAuto: true }
+};
+
+// ─── STATE ────────────────────────────────────────────────────────────────────
+let data = null;
+let selSvc = null, selTer = null, selSlot = null;
+const fmt = n => 'Rp ' + Math.round(n).toLocaleString('id-ID');
+
+// ─── CLOUD / STORAGE ──────────────────────────────────────────────────────────
+const USE_CLOUD = () =>
+  JSONBIN_KEY && JSONBIN_BIN &&
+  !JSONBIN_KEY.startsWith('GANTI') && !JSONBIN_BIN.startsWith('GANTI') &&
+  JSONBIN_KEY.length > 10 && JSONBIN_BIN.length > 10;
+
+function cacheSet(d) { try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ data: d, ts: Date.now() })); } catch(e){} }
+function cacheGet() {
+  try { const raw = localStorage.getItem(STORAGE_KEY); if (raw) { const p = JSON.parse(raw); return p.data || null; } } catch(e){}
+  return null;
+}
+
+function bookingsGet() { try { const raw = localStorage.getItem(BOOKING_KEY); return raw ? JSON.parse(raw) : []; } catch(e) { return []; } }
+function bookingsAdd(b) {
+  const list = bookingsGet();
+  const isDuplicate = list.some(bk => bk.tgl === b.tgl && bk.waktu === b.waktu && bk.terapisId === b.terapisId && bk.status !== 'batal');
+  if (isDuplicate) return false;
+  list.unshift(b);
+  try { localStorage.setItem(BOOKING_KEY, JSON.stringify(list)); } catch(e){}
+  if (USE_CLOUD()) cloudSaveBookings(list);
+  return true;
+}
+async function cloudSaveBookings(list) {
+  const current = await cloudLoad();
+  if (!current) return;
+  current.bookings = list;
+  await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_KEY, 'X-Bin-Versioning': 'false' },
+    body: JSON.stringify(current)
+  });
+}
+function bookedSlots(tgl, terapisId) {
+  return bookingsGet().filter(b => b.tgl === tgl && b.terapisId === terapisId && b.status !== 'batal').map(b => b.waktu);
+}
+
+async function cloudLoad() {
+  try {
+    const res = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN}/latest`, { headers: { 'X-Master-Key': JSONBIN_KEY } });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const json = await res.json();
+    return json.record || null;
+  } catch(e) { console.warn('[JBM] Gagal load cloud:', e); return null; }
+}
+
+async function loadData() {
+  if (USE_CLOUD()) {
+    setSyncBadge('loading');
+    const cloud = await cloudLoad();
+    if (cloud) { cacheSet(cloud); setSyncBadge('live'); return cloud; }
+    setSyncBadge('offline');
+  }
+  return cacheGet() || DEFAULT_DATA;
+}
+
+function setSyncBadge(state) {
+  const badge = document.getElementById('syncBadge');
+  const dot   = document.getElementById('syncBadgeDot');
+  if (!badge) return;
+  const map = {
+    live:    { text: 'Live', color: '#5A7A5E', bg: 'rgba(90,122,94,.1)' },
+    loading: { text: 'Memuat…', color: '#D4896A', bg: 'rgba(212,137,106,.12)' },
+    offline: { text: 'Offline', color: '#C0392B', bg: 'rgba(192,57,43,.1)' },
+  };
+  const s = map[state] || map.live;
+  badge.style.background = s.bg; badge.style.color = s.color;
+  badge.querySelector('span').textContent = s.text;
+  dot.style.background = s.color;
+}
+
+// ─── TOAST ────────────────────────────────────────────────────────────────────
+let toastTimer = null;
+function showToast(msg, dur = 2000) {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.classList.add('show');
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), dur);
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+async function init() {
+  if (window.innerWidth >= 640) {
+    document.getElementById('btnBook').style.display = 'flex';
+    document.getElementById('bookWrap').style.display = 'none';
+  }
+  const cached = cacheGet() || DEFAULT_DATA;
+  data = cached;
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('tglInp').min = today;
+
+  renderTerapis();
+  renderServicesForTerapis();
+  renderSlots();
+  renderLokasi();
+  applyFitur();
+  updateSum();
+
+  const fresh = await loadData();
+  if (JSON.stringify(fresh) !== JSON.stringify(data)) {
+    data = fresh;
+    renderTerapis(); renderServicesForTerapis(); renderSlots(); renderLokasi(); applyFitur(); updateSum();
+  }
+
+  document.getElementById('heroCount').textContent = data.services ? data.services.length : 0;
+
+  window.addEventListener('storage', e => {
+    if (e.key === STORAGE_KEY) {
+      try { data = JSON.parse(e.newValue).data; renderAll(); } catch(err) {}
+    }
+  });
+
+  setInterval(async () => {
+    if (!USE_CLOUD()) {
+      const f = cacheGet();
+      if (f && JSON.stringify(f) !== JSON.stringify(data)) { data = f; renderAll(); }
+      return;
+    }
+    const c = await cloudLoad();
+    if (c && JSON.stringify(c) !== JSON.stringify(data)) { data = c; cacheSet(c); renderAll(); }
+  }, 8000);
+}
+
+function renderAll() {
+  renderTerapis(); renderServicesForTerapis(); renderSlots(); renderLokasi(); applyFitur(); updateSum();
+}
+
+// ─── RENDER TERAPIS ───────────────────────────────────────────────────────────
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+
+function renderTerapis() {
+  const terapis = (data.terapis || []);
+  document.getElementById('terapisGrid').innerHTML = terapis.map(t => {
+    const specialties = t.specialties || [];
+    const tags = specialties.slice(0, 3).map(s => `<span class="ter-spec-tag">${esc(s)}</span>`).join('');
+    const isRating = String(t.rating).includes('.');
+    return `
+    <div class="ter-card${selTer && selTer.id === t.id ? ' selected' : ''}" onclick="selectTer(${t.id})">
+      <div class="ter-chk">✓</div>
+      <div class="ter-avatar-wrap">${t.icon}</div>
+      <div class="ter-name">${esc(t.name)}</div>
+      <div class="ter-title">${esc(t.title || '')}</div>
+      <div class="ter-rating">${isRating ? '★ ' + esc(String(t.rating)) : esc(String(t.rating))}</div>
+      <div class="ter-spec-tags">${tags}</div>
+    </div>`;
+  }).join('');
+}
+
+// ─── RENDER SERVICES PER TERAPIS ─────────────────────────────────────────────
+function renderServicesForTerapis() {
+  const grid = document.getElementById('servicesGrid');
+  const subtitle = document.getElementById('svcSubtitle');
+
+  if (!selTer) {
+    subtitle.textContent = 'Pilih terapis dahulu untuk melihat layanan yang tersedia';
+    grid.innerHTML = `
+      <div class="locked-hint" style="grid-column:1/-1">
+        <div class="lock-icon">🔒</div>
+        <p>Pilih terapis terlebih dahulu untuk melihat layanan yang bisa dipesan</p>
+      </div>`;
+    return;
+  }
+
+  // Filter services available for this terapis
+  const allServices = data.services || [];
+  let availableServices;
+
+  // If terapis has terapisIds defined, filter; otherwise show all
+  if (selTer.id === 4) {
+    // "Terapis Mana Saja" shows all
+    availableServices = allServices;
+  } else {
+    availableServices = allServices.filter(s => {
+      if (s.terapisIds && s.terapisIds.length > 0) {
+        return s.terapisIds.includes(selTer.id);
+      }
+      return true; // if no restriction, show for all
+    });
+  }
+
+  subtitle.textContent = `${availableServices.length} layanan tersedia untuk ${selTer.name}`;
+
+  if (!availableServices.length) {
+    grid.innerHTML = `<div class="loading-card" style="grid-column:1/-1">Tidak ada layanan tersedia untuk terapis ini.</div>`;
+    return;
+  }
+
+  grid.innerHTML = availableServices.map(s => `
+    <div class="svc-card${selSvc && selSvc.id === s.id ? ' selected' : ''}" onclick="selectSvc(${s.id})">
+      <div class="svc-chk">✓</div>
+      <div class="svc-icon-wrap">${s.icon}</div>
+      <div class="svc-name">${esc(s.name)}</div>
+      <div class="svc-dur">⏱ ${s.dur} menit</div>
+      <div class="svc-price">${data.harga && data.harga.showPrice === false ? '' : fmt(s.price)}</div>
+      ${s.desc ? `<div class="svc-desc">${esc(s.desc)}</div>` : ''}
+    </div>`).join('');
+
+  // If previously selected service is no longer available, deselect it
+  if (selSvc) {
+    const stillAvailable = availableServices.find(s => s.id === selSvc.id);
+    if (!stillAvailable) {
+      selSvc = null;
+      showToast(`Layanan "${selSvc ? selSvc.name : ''}" tidak tersedia untuk ${selTer.name}`);
+    }
+  }
+}
+
+function renderSlots() {
+  const slots = (data.jadwal && data.jadwal.slots) ? data.jadwal.slots : [];
+  const el = document.getElementById('slotsGrid');
+
+  if (!selTer) {
+    el.innerHTML = '<div style="font-size:.78rem;color:var(--muted);grid-column:1/-1;padding:.4rem 0">👆 Pilih terapis terlebih dahulu.</div>';
+    return;
+  }
+  if (!slots.length) {
+    el.innerHTML = '<div style="font-size:.78rem;color:var(--muted);grid-column:1/-1;padding:.4rem 0">Belum ada slot tersedia.</div>';
+    return;
+  }
+  const tgl = document.getElementById('tglInp').value;
+  if (!tgl) {
+    el.innerHTML = '<div style="font-size:.78rem;color:var(--muted);grid-column:1/-1;padding:.4rem 0">📅 Pilih tanggal terlebih dahulu.</div>';
+    return;
+  }
+
+  const booked = bookedSlots(tgl, selTer.id);
+
+  el.innerHTML = [...slots].sort((a,b)=>a.time.localeCompare(b.time)).map(s => {
+    const isBooked = booked.includes(s.time);
+    const isUnavail = !s.active || isBooked;
+    const label = isBooked ? s.time + ' 🔒' : (!s.active ? s.time + ' ✕' : s.time);
+    return `<div class="slot${isUnavail ? ' unavail' : ''}${(!isUnavail && selSlot === s.time) ? ' selected' : ''}"
+                  onclick="selectSlot(this)" data-time="${s.time}"
+                  title="${isBooked ? 'Sudah dipesan' : (!s.active ? 'Tidak tersedia' : '')}">${label}</div>`;
+  }).join('');
+}
+
+function renderLokasi() {
+  const sel = document.getElementById('lokInp');
+  const h = data.harga || {};
+  const labelStudio = h.labelStudio || 'Di Tempat Kami (Studio)';
+  const labelPanggilan = h.labelPanggilan || 'Panggilan ke Rumah / Hotel';
+  const biayaPanggilan = h.biayaPanggilan || 0;
+  const enablePanggilan = h.enablePanggilan !== false;
+  const prevVal = sel.value;
+  sel.innerHTML = '<option value="">Pilih lokasi…</option>';
+  sel.innerHTML += `<option value="${labelStudio}">${labelStudio}</option>`;
+  if (enablePanggilan) {
+    const extra = biayaPanggilan > 0 ? ` (+${fmt(biayaPanggilan)})` : '';
+    sel.innerHTML += `<option value="${labelPanggilan}">${labelPanggilan}${extra}</option>`;
+  }
+  if (prevVal) { for (const opt of sel.options) { if (opt.value === prevVal) { sel.value = prevVal; break; } } }
+}
+
+// ─── INTERACTIONS ─────────────────────────────────────────────────────────────
+function selectTer(id) {
+  const prevTer = selTer;
+  selTer = data.terapis.find(t => t.id === id);
+  
+  // Reset slot when changing terapis
+  selSlot = null;
+
+  // If changing terapis, check if current service is still available
+  if (prevTer && selTer && prevTer.id !== selTer.id && selSvc) {
+    const allServices = data.services || [];
+    let available;
+    if (selTer.id === 4) { available = allServices; }
+    else { available = allServices.filter(s => !s.terapisIds || s.terapisIds.includes(selTer.id)); }
+    if (!available.find(s => s.id === selSvc.id)) {
+      const prevName = selSvc.name;
+      selSvc = null;
+      showToast(`"${prevName}" tidak tersedia untuk ${selTer.name}`);
+    }
+  }
+
+  // Update terapis banner
+  const banner = document.getElementById('terapisBanner');
+  if (selTer) {
+    document.getElementById('tbAvatar').textContent = selTer.icon;
+    document.getElementById('tbName').textContent = selTer.name;
+    document.getElementById('tbNote').textContent = selTer.note || selTer.title || '';
+    banner.classList.add('show');
+  } else {
+    banner.classList.remove('show');
+  }
+
+  renderTerapis();
+  renderServicesForTerapis();
+  renderSlots();
+  updateSum();
+}
+
+function selectSvc(id) {
+  selSvc = data.services.find(s => s.id === id);
+  renderServicesForTerapis();
+  updateSum();
+}
+
+function selectSlot(el) {
+  if (el.classList.contains('unavail')) {
+    const t = el.getAttribute('title');
+    showToast(t && t.includes('dipesan') ? `🔒 Slot dipesan untuk ${selTer?.name}` : '⏰ Slot tidak tersedia');
+    return;
+  }
+  document.querySelectorAll('.slot').forEach(s => s.classList.remove('selected'));
+  el.classList.add('selected');
+  selSlot = el.getAttribute('data-time');
+  updateSum();
+}
+
+function updateSum() {
+  const tgl = document.getElementById('tglInp').value;
+  const lok = document.getElementById('lokInp').value;
+  const h = data.harga || {};
+  const labelPanggilan = h.labelPanggilan || 'Panggilan';
+  const biayaPanggilan = h.biayaPanggilan || 0;
+  document.getElementById('sumTer').textContent   = selTer ? selTer.name : '—';
+  document.getElementById('sumSvc').textContent   = selSvc ? selSvc.name : '—';
+  document.getElementById('sumTgl').textContent   = tgl ? new Date(tgl+'T00:00:00').toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'}) : '—';
+  document.getElementById('sumWkt').textContent   = selSlot ? selSlot + ' WIB' : '—';
+  document.getElementById('sumLok').textContent   = lok || '—';
+  let total = selSvc ? selSvc.price : 0;
+  if (lok && lok.includes(labelPanggilan) && biayaPanggilan > 0) total += biayaPanggilan;
+  document.getElementById('sumTotal').textContent = fmt(total);
+  if (selTer && tgl) renderSlots();
+}
+
+function applyFitur() {
+  const f = data.fitur || {};
+  const bookingAktif = f.booking !== false;
+  document.getElementById('btnBook').disabled = !bookingAktif;
+  const mobileBtn = document.querySelector('#bookWrap .btn-book');
+  if (mobileBtn) mobileBtn.disabled = !bookingAktif;
+  const txt = bookingAktif ? '<span>✦</span> Konfirmasi Booking' : '⛔ Booking Sedang Ditutup';
+  document.getElementById('btnBook').innerHTML = txt;
+  if (mobileBtn) mobileBtn.innerHTML = txt;
+  const lokasiWrap = document.getElementById('lokInp').closest('.fg');
+  if (lokasiWrap) lokasiWrap.style.display = f.lokasi === false ? 'none' : '';
+  const catatanWrap = document.getElementById('catInp').closest('.fg');
+  if (catatanWrap) catatanWrap.style.display = f.catatan === false ? 'none' : '';
+}
+
+function bookNow() {
+  const f = data.fitur || {};
+  if (f.booking === false) { showToast('⛔ Booking sedang ditutup'); return; }
+  if (!document.getElementById('namaInp').value.trim()) { showToast('⚠️ Nama lengkap harus diisi'); return; }
+  if (!document.getElementById('hpInp').value.trim())   { showToast('⚠️ Nomor HP harus diisi'); return; }
+  if (!selTer)  { showToast('⚠️ Pilih terapis terlebih dahulu'); return; }
+  if (!selSvc)  { showToast('⚠️ Pilih layanan terlebih dahulu'); return; }
+  if (!document.getElementById('tglInp').value) { showToast('⚠️ Pilih tanggal kunjungan'); return; }
+  if (f.lokasi !== false && !document.getElementById('lokInp').value) { showToast('⚠️ Pilih lokasi layanan'); return; }
+  if (!selSlot) { showToast('⚠️ Pilih waktu kunjungan'); return; }
+
+  const h = data.harga || {};
+  const tgl = document.getElementById('tglInp').value;
+
+  // Check double booking
+  const existing = bookingsGet();
+  if (existing.some(b => b.tgl === tgl && b.waktu === selSlot && b.terapisId === selTer.id && b.status !== 'batal')) {
+    showToast(`⚠️ ${selTer.name} sudah dipesan jam ${selSlot}`);
+    renderSlots(); selSlot = null; updateSum(); return;
+  }
+
+  const nama = document.getElementById('namaInp').value.trim();
+  const hp   = document.getElementById('hpInp').value.trim();
+  const lok  = f.lokasi !== false ? (document.getElementById('lokInp').value || '-') : '-';
+  const cat  = f.catatan !== false ? (document.getElementById('catInp').value.trim() || '') : '';
+  const labelPanggilan = h.labelPanggilan || 'Panggilan';
+  const biayaPanggilan = h.biayaPanggilan || 0;
+  let total = selSvc.price;
+  if (lok && lok.includes(labelPanggilan) && biayaPanggilan > 0) total += biayaPanggilan;
+
+  const code = 'JBM-' + Math.floor(1000 + Math.random() * 9000);
+  const booking = {
+    id: code, ts: Date.now(),
+    nama, hp,
+    layanan: selSvc.name, layananId: selSvc.id, durasi: selSvc.dur,
+    terapis: selTer.name, terapisId: selTer.id,
+    tgl, waktu: selSlot, lokasi: lok, catatan: cat, total, status: 'baru'
+  };
+  bookingsAdd(booking);
+
+  document.getElementById('sucCode').textContent = code;
+  document.getElementById('sucMsg').textContent = (data.bisnis && data.bisnis.pesanKonfirmasi) || 'Terima kasih! Kami segera menghubungi Anda via WhatsApp.';
+  document.getElementById('successOverlay').classList.add('show');
+
+  if (f.waAuto !== false && selTer && selTer.wa) {
+    const tglFmt = tgl ? new Date(tgl+'T00:00:00').toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'}) : '-';
+    const waNum = selTer.wa.replace(/\D/g,'').replace(/^0/,'62');
+    const msg = encodeURIComponent(
+      `Halo, saya ingin konfirmasi booking:\n`+
+      `📋 Kode: ${code}\n👤 Nama: ${nama}\n`+
+      `💆 Layanan: ${selSvc.name}\n📅 Tanggal: ${tglFmt} - ${selSlot} WIB\n`+
+      `👩‍⚕️ Terapis: ${selTer.name}\n📍 Lokasi: ${lok}\n📝 Catatan: ${cat || '-'}`
+    );
+    setTimeout(() => window.open(`https://wa.me/${waNum}?text=${msg}`, '_blank'), 800);
+  }
+}
+
+function closeSuccess() {
+  document.getElementById('successOverlay').classList.remove('show');
+  selSvc = selTer = selSlot = null;
+  ['namaInp','hpInp','tglInp','catInp'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+  document.getElementById('lokInp').value = '';
+  document.getElementById('terapisBanner').classList.remove('show');
+  renderAll();
+}
+
+window.addEventListener('resize', () => {
+  const isMobile = window.innerWidth < 640;
+  document.getElementById('btnBook').style.display = isMobile ? 'none' : 'flex';
+  document.getElementById('bookWrap').style.display = isMobile ? 'block' : 'none';
+});
+
+init();
+</script>
+</body>
+</html>
