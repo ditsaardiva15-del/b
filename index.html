@@ -642,16 +642,28 @@ function bookingsGet() {
 }
 function bookingsAdd(b) {
   const list = bookingsGet();
+  // CEK DUPLIKASI PER TERAPIS - TAMBAHKAN INI
+  const isDuplicate = list.some(booking => 
+    booking.tgl === b.tgl && 
+    booking.waktu === b.waktu && 
+    booking.terapisId === b.terapisId &&
+    booking.status !== 'batal'
+  );
+  
+  if (isDuplicate) {
+    console.warn('Duplicate booking detected for same terapis and time slot');
+    return false;
+  }
+  
   list.unshift(b);
   localStorage.setItem(BOOKING_KEY, JSON.stringify(list));
-  // sync ke cloud jika aktif
   if (USE_CLOUD()) cloudSaveBookings(list);
-  // broadcast ke tab lain (termasuk admin)
   window.dispatchEvent(new StorageEvent('storage', {
     key: BOOKING_KEY,
     newValue: JSON.stringify(list),
     storageArea: localStorage
   }));
+  return true;
 }
 async function cloudSaveBookings(list) {
   // simpan di field "bookings" dalam bin yang sama
@@ -666,12 +678,12 @@ async function cloudSaveBookings(list) {
 }
 
 // Slot yang sudah dipesan untuk tanggal tertentu
-function bookedSlots(tgl) {
+function bookedSlots(tgl, terapisId) {
   return bookingsGet()
-    .filter(b => b.tgl === tgl && b.status !== 'batal')
+    .filter(b => b.tgl === tgl && b.terapisId === terapisId && b.status !== 'batal')
     .map(b => b.waktu);
 }
-
+   
 async function cloudLoad() {
   try {
     const res = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN}/latest`, {
@@ -794,20 +806,49 @@ function renderTerapis() {
     </div>`).join('');
 }
 
+// TO (baru) - GANTI DENGAN INI:
 function renderSlots() {
   const slots = (data.jadwal && data.jadwal.slots) ? data.jadwal.slots : [];
   const el = document.getElementById('slotsGrid');
+  
+  // Cek apakah terapis sudah dipilih
+  if (!selTer) {
+    el.innerHTML = '<div style="font-size:.82rem;color:var(--muted);grid-column:1/-1;padding:.5rem 0">👆 Pilih terapis terlebih dahulu untuk melihat slot waktu yang tersedia.</div>';
+    return;
+  }
+  
   if (!slots.length) {
     el.innerHTML = '<div style="font-size:.82rem;color:var(--muted);grid-column:1/-1;padding:.5rem 0">Belum ada slot waktu tersedia.</div>';
     return;
   }
+  
   const tgl = document.getElementById('tglInp').value;
-  const booked = tgl ? bookedSlots(tgl) : [];
+  if (!tgl) {
+    el.innerHTML = '<div style="font-size:.82rem;color:var(--muted);grid-column:1/-1;padding:.5rem 0">📅 Pilih tanggal terlebih dahulu.</div>';
+    return;
+  }
+  
+  // Ambil slot yang sudah dibooking untuk terapis ini di tanggal ini
+  const booked = bookedSlots(tgl, selTer.id);
+  
   el.innerHTML = [...slots].sort((a,b)=>a.time.localeCompare(b.time)).map(s => {
     const isBooked = booked.includes(s.time);
-    const unavail = !s.active || isBooked;
-    const label = isBooked ? s.time + ' 🔒' : s.time;
-    return `<div class="slot${unavail ? ' unavail' : ''}${selSlot === s.time ? ' selected' : ''}" onclick="selectSlot(this)" title="${isBooked ? 'Sudah dipesan' : ''}">${label}</div>`;
+    const isUnavailable = !s.active || isBooked;
+    let label = s.time;
+    let titleText = '';
+    
+    if (isBooked) {
+      label = s.time + ' 🔒';
+      titleText = `Sudah dipesan untuk ${selTer.name}`;
+    } else if (!s.active) {
+      label = s.time + ' 🚫';
+      titleText = 'Slot tidak tersedia';
+    }
+    
+    return `<div class="slot${isUnavailable ? ' unavail' : ''}${(!isUnavailable && selSlot === s.time) ? ' selected' : ''}" 
+                 onclick="selectSlot(this)" 
+                 data-time="${s.time}"
+                 title="${titleText}">${label}</div>`;
   }).join('');
 }
 
@@ -839,15 +880,27 @@ function selectSvc(id) {
 
 function selectTer(id) {
   selTer = data.terapis.find(t => t.id === id);
+  // Reset slot selection saat ganti terapis
+  selSlot = null;
   renderTerapis();
+  renderSlots(); // Refresh slots untuk terapis baru
   updateSum();
 }
-
+   
 function selectSlot(el) {
-  if (el.classList.contains('unavail')) return;
+  if (el.classList.contains('unavail')) {
+    const title = el.getAttribute('title');
+    if (title && title.includes('Sudah dipesan')) {
+      showTemporaryToast(`⏰ Slot ini sudah dipesan untuk ${selTer?.name}, pilih waktu lain.`, 2000);
+    } else {
+      showTemporaryToast('⏰ Slot tidak tersedia', 1500);
+    }
+    return;
+  }
+  
   document.querySelectorAll('.slot').forEach(s => s.classList.remove('selected'));
   el.classList.add('selected');
-  selSlot = el.textContent.trim();
+  selSlot = el.getAttribute('data-time') || el.textContent.trim().replace(/[🔒🚫]/g, '').trim();
   updateSum();
 }
 
@@ -866,7 +919,9 @@ function updateSum() {
   if (lok && lok.includes(labelPanggilan) && biayaPanggilan > 0) total += biayaPanggilan;
   document.getElementById('sumTotal').textContent = fmt(total);
   // re-render slots agar slot yang dipesan di tanggal ini terblokir
-  renderSlots();
+  if (selTer && tgl) {
+     renderSlots();
+  }
 }
 
 function applyFitur() {
@@ -918,6 +973,22 @@ function bookNow() {
   const biayaPanggilan = h.biayaPanggilan || 0;
   let total = selSvc.price;
   if (lok && lok.includes(labelPanggilan) && biayaPanggilan > 0) total += biayaPanggilan;
+     // CEK DOUBLE BOOKING PER TERAPIS - TAMBAHKAN INI SEBELUM const code
+  const existingBookings = bookingsGet();
+  const isAlreadyBooked = existingBookings.some(b => 
+    b.tgl === tgl && 
+    b.waktu === selSlot && 
+    b.terapisId === selTer.id &&
+    b.status !== 'batal'
+  );
+  
+  if (isAlreadyBooked) {
+    alert(`⚠️ Maaf, ${selTer.name} sudah memiliki booking di jam ${selSlot} pada tanggal tersebut. Silakan pilih jam atau terapis yang berbeda.`);
+    renderSlots();
+    selSlot = null;
+    updateSum();
+    return;
+   }
 
   const code = 'STX-' + Math.floor(1000 + Math.random() * 9000);
 
